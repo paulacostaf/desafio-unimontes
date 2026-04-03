@@ -83,9 +83,16 @@ class TaskController extends Controller
         return redirect()->route('tasks.index');
     }
 
-    public function all()
+   public function all(Request $request)
     {
-        $tasks = Task::with('user')->get();
-        return view('tasks.all', compact('tasks'));
+    $tasks = Task::with('user')
+        ->when($request->search, function ($query) use ($request) {
+            $query->whereHas('user', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%');
+            });
+        })
+        ->get();
+
+    return view('tasks.all', compact('tasks'));
     }
 }

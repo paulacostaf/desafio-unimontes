@@ -7,9 +7,12 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="mb-4">
+            <div class="mb-4 flex gap-2">
                 <a href="{{ route('tasks.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded">
                     Nova Tarefa
+                </a>
+                <a href="{{ route('tasks.all') }}" class="bg-gray-600 text-white px-4 py-2 rounded">
+                    Todas as Tarefas
                 </a>
             </div>
 

@@ -7,6 +7,30 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="mb-4 flex gap-2">
+                <a href="{{ route('tasks.index') }}" class="bg-blue-500 text-white px-4 py-2 rounded">
+                    Minhas Tarefas
+                </a>
+            </div>
+
+            <div class="mb-4">
+                <form method="GET" action="{{ route('tasks.all') }}">
+                    <div class="flex gap-2">
+                        <input type="text" name="search" value="{{ request('search') }}"
+                            placeholder="Buscar por nome do usuário..."
+                            class="w-full border rounded px-3 py-2">
+                        <button type="submit" class="bg-gray-600 text-white px-4 py-2 rounded">
+                            Buscar
+                        </button>
+                        @if(request('search'))
+                            <a href="{{ route('tasks.all') }}" class="bg-red-500 text-white px-4 py-2 rounded">
+                                Limpar
+                            </a>
+                        @endif
+                    </div>
+                </form>
+            </div>
+
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
                     @forelse($tasks as $task)
