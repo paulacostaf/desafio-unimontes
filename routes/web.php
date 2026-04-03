@@ -18,7 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/tasks/all', [TaskController::class, 'all'])->name('tasks.all');
     Route::patch('/tasks/{task}/concluir', [TaskController::class, 'concluir'])->name('tasks.concluir');
-    Route::resource('tasks', TaskController::class);
+    Route::resource('tasks', TaskController::class)->except(['show']);
 });
 
 require __DIR__.'/auth.php';

@@ -23,7 +23,7 @@ class TaskController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
         ]);
 
         Task::create([
@@ -66,11 +66,15 @@ class TaskController extends Controller
         return redirect()->route('tasks.index');
     }
     
-    public function concluir(Task $task)
-    {
-         $task->update(['status' => 'concluida']);
-        return redirect()->route('tasks.index');
+   public function concluir(Task $task)
+{
+    if ($task->user_id !== Auth::id()) {
+        abort(403);
     }
+
+    $task->update(['status' => 'concluida']);
+    return redirect()->route('tasks.index');
+}
 
     public function destroy(Task $task)
     {
