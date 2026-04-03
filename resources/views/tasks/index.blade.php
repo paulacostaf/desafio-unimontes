@@ -24,15 +24,24 @@
                                 <div>
                                     <h3 class="font-semibold text-lg">{{ $task->title }}</h3>
                                     <p class="text-gray-600">{{ $task->description }}</p>
-                                    <span class="text-sm {{ $task->status === 'concluida' ? 'text-green-500' : 'text-yellow-500' }}">
+                                    <span
+                                        class="text-sm {{ $task->status === 'concluida' ? 'text-green-500' : 'text-yellow-500' }}">
                                         {{ $task->status === 'concluida' ? 'Concluída' : 'Pendente' }}
                                     </span>
                                 </div>
                                 <div class="flex gap-2">
-                                    <a href="{{ route('tasks.edit', $task) }}" class="bg-yellow-400 text-white px-3 py-1 rounded">
+                                    <form action="{{ route('tasks.destroy', $task) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="bg-red-500 text-white px-3 py-1 rounded">
+                                            Excluir
+                                        </button>
+                                    </form>
+                                    <a href="{{ route('tasks.edit', $task) }}"
+                                        class="bg-yellow-400 text-white px-3 py-1 rounded">
                                         Editar
                                     </a>
-                                    @if($task->status === 'pendente')
+                                    @if ($task->status === 'pendente')
                                         <form action="{{ route('tasks.concluir', $task) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
@@ -41,13 +50,6 @@
                                             </button>
                                         </form>
                                     @endif
-                                    <form action="{{ route('tasks.destroy', $task) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button class="bg-red-500 text-white px-3 py-1 rounded">
-                                            Excluir
-                                        </button>
-                                    </form>
                                 </div>
                             </div>
                         </div>
